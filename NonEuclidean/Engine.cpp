@@ -5,6 +5,7 @@
   #include <GL/wglew.h>
 #else
   #include <GL/glew.h>
+  #include <GL/glut.h>
 #endif
 #include <cmath>
 #include <iostream>
@@ -17,7 +18,10 @@ int GH_REC_LEVEL = 0;
 int64_t GH_FRAME = 0;
 
 Engine::Engine() {
-  GH_ENGINE = this;
+  // GLUT initialisieren (falls noch nicht geschehen)
+  int argc = 1;
+  char* argv[1] = {(char*)"Game"};
+  glutInit(&argc, argv);  GH_ENGINE = this;
   GH_INPUT = &input;
   isFullscreen = false;
 
@@ -54,6 +58,43 @@ int Engine::Run() {
   return 0;
 }
 
+void Engine::DrawPlayerPosition() {
+  if (!GH_PLAYER) return;
+
+  std::string posText = "Pos: (" + 
+                        std::to_string(GH_PLAYER->pos.x) + ", " + 
+                        std::to_string(GH_PLAYER->pos.y) + ", " + 
+                        std::to_string(GH_PLAYER->pos.z) + ")";
+
+  glMatrixMode(GL_PROJECTION);
+  glPushMatrix();
+  glLoadIdentity();
+  gluOrtho2D(0, iWidth, 0, iHeight);
+
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+  glLoadIdentity();
+
+  glDisable(GL_DEPTH_TEST);
+  glColor3f(1.0f, 1.0f, 1.0f); // Weißer Text
+
+  // Position unten rechts
+  int textX = iWidth - 200; // Abstand vom rechten Rand
+  int textY = 20; // Abstand vom unteren Rand
+  glRasterPos2i(textX, textY);
+
+  for (char c : posText) {
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+  }
+
+  glEnable(GL_DEPTH_TEST);
+
+  glPopMatrix();
+  glMatrixMode(GL_PROJECTION);
+  glPopMatrix();
+  glMatrixMode(GL_MODELVIEW);
+}
+
 void Engine::PeriodicRender(int64_t &cur_ticks) {
 
   //Used fixed time steps for updates
@@ -78,6 +119,9 @@ void Engine::PeriodicRender(int64_t &cur_ticks) {
   //Render scene
   GH_REC_LEVEL = GH_MAX_RECURSION;
   Render(main_cam, 0, nullptr);
+
+  // Zeichne Spielerposition als Overlay-Text
+  DrawPlayerPosition();
 }
 
 void Engine::LoadScene(int ix) {

@@ -44,6 +44,7 @@ private:
   void ConfineCursor();
   void ToggleFullscreen();
   int EnterMessageLoop();
+  void DrawPlayerPosition();
   void PeriodicRender(int64_t &cur_ticks);
   void EnableVSync();
 

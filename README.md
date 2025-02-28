@@ -9,9 +9,9 @@ https://youtu.be/kEB11PQ9Eo8
 ## Source Code Dependencies
 Win32 - Add glew-2.1.0 to the main directory 
 
-SDL - Install glew and SDL libraries
+SDL - Install glew, glut and SDL libraries
 
-(packets `libglew-dev` and `libsdl2-dev` on ubuntu)
+(packets `libglew-dev freeglut3 freeglut3-dev libsdl2-dev` on ubuntu)
 
 ## Building
 Win32 - Open NonEuclidean.sln

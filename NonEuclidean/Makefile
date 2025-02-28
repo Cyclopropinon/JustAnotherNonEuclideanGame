@@ -3,7 +3,7 @@ CXX = c++
 CXXFLAGS_11 = -O3 -march=native -std=c++11
 CXXFLAGS_23 = -O3 -march=native -std=c++23
 LINK = c++
-LINKFLAGS = -lm -lSDL2 -lSDL2main -lGLEW
+LINKFLAGS = -lm -lSDL2 -lSDL2main -lGLEW -lglut -lGLU
 
 UNAME := $(shell uname)
 
