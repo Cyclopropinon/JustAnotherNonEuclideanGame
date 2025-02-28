@@ -35,6 +35,7 @@ i only develop on linux, so no guarantee it will work/compile on other OSs. Fixe
 
 ## TODO
 * understand the code lol
+* Logfile
 * add settings file
 * more levels
 * level editor
