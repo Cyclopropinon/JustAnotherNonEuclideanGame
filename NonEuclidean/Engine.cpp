@@ -73,7 +73,7 @@ void Engine::PeriodicRender(int64_t &cur_ticks) {
   main_cam.UseViewport();
 
   // Get camera position
-  std::cout << "Camera Position: " << GH_PLAYER->pos.x << ", " << GH_PLAYER->pos.y << ", " << GH_PLAYER->pos.z << "\r";
+  std::cout << "Camera Position: " << GH_PLAYER->pos.x << ",\t" << GH_PLAYER->pos.y << ",\t" << GH_PLAYER->pos.z << "\r";
 
   //Render scene
   GH_REC_LEVEL = GH_MAX_RECURSION;
