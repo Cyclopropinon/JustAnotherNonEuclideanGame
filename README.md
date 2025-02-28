@@ -34,11 +34,12 @@ i only develop on linux, so no guarantee it will work/compile on other OSs. Fixe
 * **Esc** - Exit demo
 
 ## TODO
-* upgrade to modern c++ versions
+* understand the code lol
 * add settings file
 * more levels
 * level editor
 * fps monitor
 
 ## Done
-*nothing here yet*
+* upgrade to modern C++ versions (C++23)
+
