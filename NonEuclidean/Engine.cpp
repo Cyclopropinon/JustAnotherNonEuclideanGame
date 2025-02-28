@@ -5,11 +5,12 @@
   #include <GL/wglew.h>
 #else
   #include <GL/glew.h>
-  #include <GL/glut.h>
+  #include <GL/freeglut.h>
 #endif
 #include <cmath>
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 Engine* GH_ENGINE = nullptr;
 Player* GH_PLAYER = nullptr;
@@ -20,7 +21,7 @@ int64_t GH_FRAME = 0;
 Engine::Engine() {
   // GLUT initialisieren (falls noch nicht geschehen)
   int argc = 1;
-  char* argv[1] = {(char*)"Game"};
+  char* argv[1] = {(char*)"Spiel"};
   glutInit(&argc, argv);  GH_ENGINE = this;
   GH_INPUT = &input;
   isFullscreen = false;
@@ -58,37 +59,49 @@ int Engine::Run() {
   return 0;
 }
 
+void RenderString(float x, float y, void *font, const unsigned char* string, float r, float g, float b)
+{  
+  char *c;
+
+  glColor3f(r, g, b); 
+  glRasterPos2f(x, y);
+
+  glutBitmapString(font, string);
+}
+
 void Engine::DrawPlayerPosition() {
   if (!GH_PLAYER) return;
 
-  std::string posText = "Pos: (" + 
+  // Spielerposition als Text formatieren
+  std::string posText = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";/*"Pos: (" + 
                         std::to_string(GH_PLAYER->pos.x) + ", " + 
                         std::to_string(GH_PLAYER->pos.y) + ", " + 
-                        std::to_string(GH_PLAYER->pos.z) + ")";
+                        std::to_string(GH_PLAYER->pos.z) + ")";*/
 
+  // OpenGL auf 2D-Rendering umstellen
   glMatrixMode(GL_PROJECTION);
   glPushMatrix();
   glLoadIdentity();
-  gluOrtho2D(0, iWidth, 0, iHeight);
+  gluOrtho2D(0, iWidth, 0, iHeight);  // 2D-Projektion passend zur Fenstergröße
 
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
   glLoadIdentity();
 
   glDisable(GL_DEPTH_TEST);
-  glColor3f(1.0f, 1.0f, 1.0f); // Weißer Text
+  glColor3f(0.0f, 0.0f, 0.0f); // Weißer Text
 
-  // Position unten rechts
-  int textX = iWidth - 200; // Abstand vom rechten Rand
-  int textY = 20; // Abstand vom unteren Rand
+  // Position unten links
+  int textX = 10;  // Linker Rand
+  int textY = 10;  // Unterer Rand
   glRasterPos2i(textX, textY);
 
-  for (char c : posText) {
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
-  }
+  // Text Zeichen für Zeichen zeichnen
+  RenderString(textX, textY, GLUT_BITMAP_9_BY_15, reinterpret_cast<const unsigned char*>(posText.c_str()), 0, 0, 0);
 
   glEnable(GL_DEPTH_TEST);
 
+  // Zurück zu 3D-Rendering
   glPopMatrix();
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
@@ -114,7 +127,7 @@ void Engine::PeriodicRender(int64_t &cur_ticks) {
   main_cam.UseViewport();
 
   // Get camera position
-  std::cout << "Camera Position: " << GH_PLAYER->pos.x << ",\t" << GH_PLAYER->pos.y << ",\t" << GH_PLAYER->pos.z << "\r";
+  std::cout << "Camera Position: " << GH_PLAYER->pos.x << ",\t" << GH_PLAYER->pos.y << ",\t" << GH_PLAYER->pos.z << ",\t" << iWidth  << ",\t" << iHeight << "\r";
 
   //Render scene
   GH_REC_LEVEL = GH_MAX_RECURSION;
