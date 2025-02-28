@@ -29,7 +29,7 @@ i only develop on linux, so no guarantee it will work/compile on other OSs. Fixe
 ## Controls
 * **Mouse** - Look around
 * **AWSD** - Movement
-* **1 - 7** - Switch between different demo rooms
+* **1 - 8** - Switch between different demo rooms
 * **Alt + Enter** - Toggle Fullscreen
 * **Esc** - Exit demo
 
