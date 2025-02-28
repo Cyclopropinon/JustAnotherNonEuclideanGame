@@ -59,25 +59,8 @@ int Engine::Run() {
   return 0;
 }
 
-void RenderString(float x, float y, void *font, const unsigned char* string, float r, float g, float b)
+void Engine::RenderString(float x, float y, void *font, const unsigned char* string, float r, float g, float b)
 {  
-  char *c;
-
-  glColor3f(r, g, b); 
-  glRasterPos2f(x, y);
-
-  glutBitmapString(font, string);
-}
-
-void Engine::DrawPlayerPosition() {
-  if (!GH_PLAYER) return;
-
-  // Spielerposition als Text formatieren
-  std::string posText = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";/*"Pos: (" + 
-                        std::to_string(GH_PLAYER->pos.x) + ", " + 
-                        std::to_string(GH_PLAYER->pos.y) + ", " + 
-                        std::to_string(GH_PLAYER->pos.z) + ")";*/
-
   // OpenGL auf 2D-Rendering umstellen
   glMatrixMode(GL_PROJECTION);
   glPushMatrix();
@@ -89,16 +72,12 @@ void Engine::DrawPlayerPosition() {
   glLoadIdentity();
 
   glDisable(GL_DEPTH_TEST);
-  glColor3f(0.0f, 0.0f, 0.0f); // Weißer Text
 
-  // Position unten links
-  int textX = 10;  // Linker Rand
-  int textY = 10;  // Unterer Rand
-  glRasterPos2i(textX, textY);
+  glColor3f(r, g, b); 
+  glRasterPos2f(x, y);
 
-  // Text Zeichen für Zeichen zeichnen
-  RenderString(textX, textY, GLUT_BITMAP_9_BY_15, reinterpret_cast<const unsigned char*>(posText.c_str()), 0, 0, 0);
-
+  glutBitmapString(font, string);
+  
   glEnable(GL_DEPTH_TEST);
 
   // Zurück zu 3D-Rendering
@@ -106,6 +85,29 @@ void Engine::DrawPlayerPosition() {
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
   glMatrixMode(GL_MODELVIEW);
+}
+
+inline void Engine::RenderString(float x, float y, void *font, std::string string, float r, float g, float b)
+{
+  RenderString(x, y, font, reinterpret_cast<const unsigned char*>(string.c_str()), r, g, b);
+}
+
+void Engine::DrawPlayerPosition() {
+  if (!GH_PLAYER) return;
+
+  // Spielerposition als Text formatieren
+  std::string posText = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_DIGGA_WARUM_FUNKTIONIERT_DIESE_SCHEISSE_NICHT??????";
+  /*"Pos: (" + 
+                        std::to_string(GH_PLAYER->pos.x) + ", " + 
+                        std::to_string(GH_PLAYER->pos.y) + ", " + 
+                        std::to_string(GH_PLAYER->pos.z) + ")";*/
+
+  // Position unten links
+  int textX = 10;  // Linker Rand
+  int textY = 10;  // Unterer Rand
+
+  // Text Zeichen für Zeichen zeichnen
+  RenderString(textX, textY, GLUT_BITMAP_9_BY_15, posText, 0, 0, 0);
 }
 
 void Engine::PeriodicRender(int64_t &cur_ticks) {

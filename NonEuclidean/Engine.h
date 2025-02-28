@@ -45,6 +45,8 @@ private:
   void ToggleFullscreen();
   int EnterMessageLoop();
   void DrawPlayerPosition();
+  void RenderString(float x, float y, void *font, const unsigned char* string, float r, float g, float b);
+  inline void RenderString(float x, float y, void *font, std::string string, float r, float g, float b);
   void PeriodicRender(int64_t &cur_ticks);
   void EnableVSync();
 
