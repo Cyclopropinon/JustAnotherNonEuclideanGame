@@ -1,7 +1,7 @@
 CXX = c++
 # Kompilierung mit c++11 und c++23 wegen geschwindigkeit + aktualität
-CXXFLAGS_11 = -O3 -std=c++11
-CXXFLAGS_23 = -O3 -std=c++23
+CXXFLAGS_11 = -O3 -march=native -std=c++11
+CXXFLAGS_23 = -O3 -march=native -std=c++23
 LINK = c++
 LINKFLAGS = -lm -lSDL2 -lSDL2main -lGLEW
 
@@ -22,7 +22,7 @@ HEADERS = Camera.h Collider.h Engine.h Floorplan.h FrameBuffer.h GameHeader.h \
     Ground.h House.h Input.h Mesh.h Object.h Physical.h Pillar.h PillarRoom.h \
     Player.h Portal.h Resources.h Scene.h Shader.h Sky.h Sphere.h Statue.h \
     Texture.h Timer.h Tunnel.h Vector.h \
-    Level1.h Level2.h Level3.h Level4.h Level5.h Level6.h Level7.h
+    Levels.h Level1.h Level2.h Level3.h Level4.h Level5.h Level6.h Level7.h
 
 SRC_11 = Camera.cpp Collider.cpp Engine.cpp Engine_Win32.cpp Engine_SDL2.cpp \
     FrameBuffer.cpp Input.cpp Level1.cpp Level2.cpp Level3.cpp Level4.cpp \
