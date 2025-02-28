@@ -36,6 +36,8 @@ i only develop on linux, so no guarantee it will work/compile on other OSs. Fixe
 ## TODO
 * understand the code lol
 * Logfile
+* Coordinate display
+* fix memory leak when switching levels
 * add settings file
 * more levels
 * level editor
