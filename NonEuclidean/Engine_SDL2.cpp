@@ -162,6 +162,8 @@ int Engine::EnterMessageLoop() {
       LoadScene(5);
     } else if (input.key_press['7']) {
       LoadScene(6);
+    } else if (input.key_press['8']) {
+      LoadScene(7);
     }
 
     PeriodicRender(cur_ticks);
