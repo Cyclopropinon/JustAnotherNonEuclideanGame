@@ -34,6 +34,7 @@ i only develop on linux, so no guarantee it will work/compile on other OSs. Fixe
 * **Esc** - Exit demo
 
 ## TODO
+* **HELP WANTED!** Rendering a string somehow doesn't work, and i haven't been able to fix it (see Engine::RenderString in Engine.cpp)
 * understand the code lol
 * Logfile
 * Coordinate display
